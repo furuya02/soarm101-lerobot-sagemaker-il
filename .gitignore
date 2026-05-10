@@ -1,0 +1,11 @@
+node_modules/
+cdk.out/
+dist/
+*.tsbuildinfo
+__pycache__/
+*.pyc
+.venv/
+.env
+.DS_Store
+model.tar.gz
+outputs/
