@@ -1,7 +1,5 @@
 """SageMaker Training Job entrypoint for LeRobot ACT training (SO-ARM101)."""
 
-from __future__ import annotations
-
 import os
 import shutil
 import subprocess
@@ -9,17 +7,17 @@ from pathlib import Path
 
 
 def main() -> None:
-    data_dir: str = os.environ["SM_CHANNEL_TRAIN"]
-    ckpt_dir: str = os.environ.get("SM_CHECKPOINT_DIR", "/opt/ml/checkpoints")
-    model_dir: str = os.environ["SM_MODEL_DIR"]
+    data_dir = os.environ["SM_CHANNEL_TRAIN"]
+    model_dir = os.environ["SM_MODEL_DIR"]
+    ckpt_dir = "/opt/ml/checkpoints"
 
-    hf_root: Path = Path.home() / ".cache/huggingface/lerobot/hirauchi"
+    hf_root = Path.home() / ".cache/huggingface/lerobot/hirauchi"
     hf_root.mkdir(parents=True, exist_ok=True)
-    link_path: Path = hf_root / "duck_pickup_v1"
+    link_path = hf_root / "duck_pickup_v1"
     if not link_path.exists():
         link_path.symlink_to(data_dir)
 
-    cmd: list[str] = [
+    subprocess.check_call([
         "lerobot-train",
         "--dataset.repo_id=hirauchi/duck_pickup_v1",
         "--dataset.video_backend=pyav",
@@ -32,11 +30,10 @@ def main() -> None:
         "--wandb.enable=false",
         "--policy.push_to_hub=false",
         "--resume=true",
-    ]
-    subprocess.check_call(cmd)
+    ])
 
-    src: Path = Path(ckpt_dir) / "checkpoints" / "last" / "pretrained_model"
-    dst: Path = Path(model_dir) / "pretrained_model"
+    src = Path(ckpt_dir) / "checkpoints" / "last" / "pretrained_model"
+    dst = Path(model_dir) / "pretrained_model"
     shutil.copytree(src, dst, dirs_exist_ok=True)
 
 
