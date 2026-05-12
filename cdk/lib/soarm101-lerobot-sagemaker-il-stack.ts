@@ -16,13 +16,8 @@ export class SoarmStack extends cdk.Stack {
     const bucket = new s3.Bucket(this, "ArtifactBucket", {
       bucketName: `${projectName}-${bucketSuffix}`,
       removalPolicy: cdk.RemovalPolicy.RETAIN,
-      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
-      encryption: s3.BucketEncryption.S3_MANAGED,
       lifecycleRules: [
-        {
-          prefix: "checkpoints/",
-          expiration: cdk.Duration.days(7),
-        },
+        { prefix: "checkpoints/", expiration: cdk.Duration.days(7) },
       ],
     });
 
