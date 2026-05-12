@@ -44,7 +44,6 @@ aws s3 sync \
 ```bash
 export SAGEMAKER_ROLE_ARN=arn:aws:iam::<account-id>:role/soarm101-lerobot-sagemaker-il-sagemaker-execution-role
 export S3_BUCKET=soarm101-lerobot-sagemaker-il-<account-id>
-export USE_SPOT=true
 
 pip install sagemaker
 python src/submit.py
