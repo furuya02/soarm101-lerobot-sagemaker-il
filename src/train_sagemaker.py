@@ -9,13 +9,16 @@ from pathlib import Path
 def main() -> None:
     data_dir = os.environ["SM_CHANNEL_TRAIN"]
     model_dir = os.environ["SM_MODEL_DIR"]
-    ckpt_dir = "/opt/ml/checkpoints"
+    ckpt_dir = "/opt/ml/checkpoints/lerobot"
 
     hf_root = Path.home() / ".cache/huggingface/lerobot/hirauchi"
     hf_root.mkdir(parents=True, exist_ok=True)
     link_path = hf_root / "duck_pickup_v1"
     if not link_path.exists():
         link_path.symlink_to(data_dir)
+
+    config_path = Path(ckpt_dir) / "checkpoints" / "last" / "pretrained_model" / "train_config.json"
+    resume_args = [f"--config_path={config_path}", "--resume=true"] if config_path.exists() else []
 
     subprocess.check_call([
         "lerobot-train",
@@ -29,7 +32,7 @@ def main() -> None:
         "--batch_size=8",
         "--wandb.enable=false",
         "--policy.push_to_hub=false",
-        "--resume=true",
+        *resume_args,
     ])
 
     src = Path(ckpt_dir) / "checkpoints" / "last" / "pretrained_model"
