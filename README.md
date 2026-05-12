@@ -2,7 +2,7 @@
 
 Run LeRobot ACT imitation learning for SO-ARM101 on Amazon SageMaker Training Jobs (Managed Spot).
 
-This repository contains the AWS CDK stack and SageMaker entrypoint scripts for training the `duck_pickup_v1` dataset on `ml.g4dn.xlarge` (T4 16GB) with Managed Spot Training.
+This repository contains the AWS CDK stack and SageMaker entrypoint scripts for training the `duck_pickup_v1` dataset on `ml.g5.2xlarge` (NVIDIA A10G 24GB) with Managed Spot Training.
 
 ## Prerequisites
 
@@ -63,7 +63,7 @@ tar xzf model.tar.gz -C outputs/sagemaker_model/
 
 ## Cost note
 
-Estimated cost is around USD 0.30 (about JPY 50) for one 30,000-step Spot run on `ml.g4dn.xlarge`. Make sure to delete the S3 bucket after the project is over, or rely on the lifecycle rule that expires `checkpoints/` after 7 days.
+Estimated cost is around USD 0.70 (about JPY 100) for one 30,000-step Spot run on `ml.g5.2xlarge`. Make sure to delete the S3 bucket after the project is over, or rely on the lifecycle rule that expires `checkpoints/` after 7 days.
 
 ## License
 
