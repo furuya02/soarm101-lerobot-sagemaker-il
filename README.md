@@ -63,7 +63,7 @@ tar xzf model.tar.gz -C outputs/sagemaker_model/
 
 ## Cost note
 
-Estimated cost is around USD 0.70 (about JPY 100) for one 30,000-step Spot run on `ml.g5.2xlarge`. Make sure to delete the S3 bucket after the project is over, or rely on the lifecycle rule that expires `checkpoints/` after 7 days.
+One 30,000-step Spot run on `ml.g5.2xlarge` actually cost about **USD 0.91 (≈ JPY 137)** in our run, with a wall time of ~53 minutes and 53% Spot savings. Make sure to delete the S3 bucket after the project is over, or rely on the lifecycle rule that expires `checkpoints/` after 7 days.
 
 ## License
 

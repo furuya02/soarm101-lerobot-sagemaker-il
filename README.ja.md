@@ -63,7 +63,7 @@ tar xzf model.tar.gz -C outputs/sagemaker_model/
 
 ## コストに関する注意
 
-`ml.g5.2xlarge` Spot で 30,000 step を 1 回回した場合、推定費用は約 USD 0.70（約 100 円）です。終了後は S3 バケットの削除、または `checkpoints/` を 7 日でライフサイクル削除する設定で放置費用を抑えてください。
+`ml.g5.2xlarge` Spot で 30,000 step を 1 回回した実測値で、約 **USD 0.91（約 137 円）/ wall 約 53 分 / Spot 節約率 53%** でした。終了後は S3 バケットの削除、または `checkpoints/` を 7 日でライフサイクル削除する設定で放置費用を抑えてください。
 
 ## ライセンス
 
